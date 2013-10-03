@@ -1,0 +1,6 @@
+name = "lt_test"
+description = "LT testing module"
+package = Others 
+core = "7.x"
+project = "lt_test"
+version = "7.x-0.1"

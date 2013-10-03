@@ -1,0 +1,42 @@
+<?php
+/**
+ * @file lt_test.module
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function lt_test_menu() {
+  $items = array();    
+  
+  $items['test/nodejs_message/%/%'] = array(
+      'title' => 'Message from Node.js server',
+      'page callback' => 'lt_test_nodejs_message',
+      'page arguments' => array(2, 3),      
+      'access callback' => TRUE,
+      'type' => MENU_CALLBACK,
+    );
+
+  return $items;          
+}
+
+/**
+ * This function tests if nodejs works.
+ * @global object $user
+ * @param integer $uid
+ * @return string $output
+ */
+function lt_test_nodejs_message($uid, $message) {
+  $output = '';
+  global $user;
+
+  $time = date("Y-m-d H:i:s");
+  $subject = "test/nodejs_message/$user->uid/yourmessage";
+  $body = $message;
+  
+  nodejs_send_user_message($uid, $subject, $body);
+
+  $output .= "<BR>$time - A nodejs message \"$message\" was sent to user $uid.";
+
+  return $output;
+}
